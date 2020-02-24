@@ -1,4 +1,4 @@
-export default class SunWeb {
+export default class sun {
     constructor(mainchain = false, sidechain = false, mainGatewayAddress = false, sideGatewayAddress = false, sideChainId = false) {
         this.mainchain = mainchain;
         this.sidechain = sidechain;

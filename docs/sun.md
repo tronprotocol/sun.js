@@ -1,6 +1,6 @@
 # SUN.js
 
-Sun.js inherits from TronWeb and services for Sun-network. We  encapsulated two objects (mainchain and sidechain) based on TronWeb. The methods and attributes in mainchain or sidechain are exactly the same as the tronweb instance. For example, users can use sun.mainchain.trx.getBalance() to get balance from the mainchain. Futhermore, we add some new methods which are as follows in Sun.js class so that users can use them to contact between the main chain and the side chain. 
+sun.js inherits from TronWeb and services for Sun-network. We  encapsulated two objects (mainchain and sidechain) based on TronWeb. The methods and attributes in mainchain or sidechain are exactly the same as the tronweb instance. For example, users can use sun.mainchain.trx.getBalance() to get balance from the mainchain. Futhermore, we add some new methods which are as follows in sun.js class so that users can use them to contact between the main chain and the side chain. 
 
 ## Sun Object
 

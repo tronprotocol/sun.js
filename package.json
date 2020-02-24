@@ -1,8 +1,8 @@
 {
     "name": "sun",
-    "version": "1.0.8",
+    "version": "1.0.0",
     "description": "JavaScript SDK that encapsulates the TRON HTTP API",
-    "main": "dist/Sun.node.js",
+    "main": "dist/sun.node.js",
     "scripts": {
         "prepare": "npm run build",
         "build": "npm run clean && webpack --config webpack.config.js --progress --colors",
@@ -64,6 +64,7 @@
     },
     "keywords": [
         "sun",
+        "sunWeb",
         "sun.js",
         "tron"
     ],

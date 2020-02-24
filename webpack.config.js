@@ -59,7 +59,7 @@ module.exports = [
         ...baseConfig,
         output: {
             path: path.resolve(__dirname, 'dist'),
-            filename: 'Sun.node.js',
+            filename: 'sun.node.js',
             libraryTarget: 'commonjs2',
             libraryExport: 'default'
         },
@@ -92,7 +92,7 @@ module.exports = [
         ...baseConfig,
         output: {
             path: path.resolve(__dirname, 'dist'),
-            filename: 'Sun.js',
+            filename: 'sun.js',
             library: 'Sun',
             libraryTarget: 'umd',
             libraryExport: 'default',
