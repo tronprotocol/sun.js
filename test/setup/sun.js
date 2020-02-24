@@ -1,1 +1,1 @@
-module.exports = require('../../dist/sun.node.js');
+module.exports = require('../../dist/sun.node');

@@ -1,3 +1,5 @@
+import injectpromise from 'injectpromise';
+
 export default class sun {
     constructor(mainchain = false, sidechain = false, mainGatewayAddress = false, sideGatewayAddress = false, sideChainId = false) {
         this.mainchain = mainchain;
@@ -7,7 +9,7 @@ export default class sun {
         this.setMainGatewayAddress(mainGatewayAddress);
         this.setSideGatewayAddress(sideGatewayAddress);
         this.setChainId(sideChainId);
-        this.injectPromise = this.utils.promiseInjector(this);
+        this.injectPromise = injectpromise(this);
         this.validator = this.mainchain.trx.validator;
 
         const self = this;
@@ -79,18 +81,18 @@ export default class sun {
         const signWeight = await this.sidechain.trx.getSignWeight(transaction, permissionId);
 
         if (signWeight.result.code === 'PERMISSION_ERROR') {
-           return callback(signWeight.result.message);
+            return callback(signWeight.result.message);
         }
 
         let foundKey = false;
         signWeight.permission.keys.map(key => {
-           if (key.address === address) foundKey = true;
+            if (key.address === address) foundKey = true;
         });
 
         if (!foundKey) return callback(privateKey + ' has no permission to sign');
 
         if (signWeight.approved_list && signWeight.approved_list.indexOf(address) != -1) {
-           return callback(privateKey + ' already sign transaction');
+            return callback(privateKey + ' already sign transaction');
         }
 
         // reset transaction
@@ -98,14 +100,14 @@ export default class sun {
             transaction = signWeight.transaction.transaction;
             transaction.raw_data.contract[0].Permission_id = permissionId;
         } else {
-             return callback('Invalid transaction provided');
+            return callback('Invalid transaction provided');
         }
 
         // sign
         try {
-           return callback(null, this.signTransaction(privateKey, transaction));
+            return callback(null, this.signTransaction(privateKey, transaction));
         } catch (ex) {
-           callback(ex);
+            callback(ex);
         }
     }
 
@@ -167,7 +169,7 @@ export default class sun {
         }
     }
 
-     /**
+    /**
      * deposit asset to sidechain
      */
     async depositTrx(
@@ -367,7 +369,7 @@ export default class sun {
                         break;
                     case 'retryDeposit':
                         result = await contractInstance.retryDeposit(num).send(options, privateKey);
-                        break; 
+                        break;
                     case 'retryMapping':
                         result = await contractInstance.retryMapping(num).send(options, privateKey);
                         break;
