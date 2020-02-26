@@ -1,13 +1,13 @@
-const mainFullNode = '';
-const mainSolidityNode = '';
-const mainEventServer = '';
+const mainFullNode = 'https://testhttpapi.tronex.io';
+const mainSolidityNode = 'https://testhttpapi.tronex.io';
+const mainEventServer = 'https://testapi.tronex.io';
 
-const sideFullNode = '';
-const sideSolidityNode = '';
-const sideEventServer = '';
+const sideFullNode = 'https://suntest.tronex.io';
+const sideSolidityNode = 'https://suntest.tronex.io';
+const sideEventServer = 'https://suntest.tronex.io';
 
 module.exports = {
-    PRIVATE_KEY: '',
+    PRIVATE_KEY: '0c6e219d4c53649a14c2613c3a123a7b084d7c8caf67325ed8e2fb137fbcc943',
     CONSUME_USER_RESOURCE_PERCENT: 30,
     DEPOSIT_FEE: 0,
     MAPPING_FEE: 0,
@@ -20,14 +20,16 @@ module.exports = {
     SIDE_SOLIDITY_NODE_API: sideSolidityNode,
     SIDE_EVENT_API: sideEventServer,
     // NETWORK_ID: "*",
-    MAIN_GATEWAY_ADDRESS: 'TTjYDMknMueXg9XGE81FSwMc83xuKXemBR',
-    MAIN_GATEWAY_ADDRESS_HEX: '41c2dc7a62818de36321fa3eb71080ca59f7e4fc35',
-    SIDE_GATEWAY_ADDRESS: 'TTVkufdf9c7oHwf3jmqBPgK9LumRNDkh3C',
-    SIDE_GATEWAY_ADDRESS_HEX: '41c0414077c1b6b0d803fae15f47d98451c79e7091',
-    SIDE_CHAIN_ID: '41c2dc7a62818de36321fa3eb71080ca59f7e4fc35',
+    MAIN_GATEWAY_ADDRESS: 'TFLtPoEtVJBMcj6kZPrQrwEdM3W3shxsBU',
+    // MAIN_GATEWAY_ADDRESS_HEX: '41c2dc7a62818de36321fa3eb71080ca59f7e4fc35',
+    MAIN_GATEWAY_ADDRESS_HEX: '54464c74506f4574564a424d636a366b5a507251727745644d335733736878734255',
+    SIDE_GATEWAY_ADDRESS: 'TRDepx5KoQ8oNbFVZ5sogwUxtdYmATDRgX',
+    // SIDE_GATEWAY_ADDRESS_HEX: '41c0414077c1b6b0d803fae15f47d98451c79e7091',
+    SIDE_GATEWAY_ADDRESS_HEX: '545244657078354b6f51386f4e6246565a35736f677755787464596d415444526758',
+    SIDE_CHAIN_ID: '413AF23F37DA0D48234FDD43D89931E98E1144481B',
     ADDRESS_HEX: '41d7bfa8bfeb5822837878180a66921473339cf0d3',
     ADDRESS_BASE58: 'TVdyt1s88BdiCjKt6K2YuoSmpWScZYK1QF',
-    TOKEN_ID: 1000001,
+    TOKEN_ID: 1000041,
     HASH20: 'c599148ed97c881eee7269344c29d3bb356afa6127a86df39a7c154ee8d4584f',
     CONTRACT_ADDRESS20: 'TGKuXDnvdHv9RNE6BPXUtNLK2FrVMBDAuA',
     CONTRACT_ADDRESS20_HEX: '4145bae5fb418cbc625a38f075a5d18075cb2fc371',
