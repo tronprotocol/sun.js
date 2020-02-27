@@ -15,9 +15,12 @@
     },
     "dependencies": {
         "@babel/runtime": "^7.4.5",
+        "axios": "^0.19.2",
         "babel-runtime": "^6.26.0",
+        "bignumber.js": "^9.0.0",
         "eventemitter3": "^4.0.0",
-        "injectpromise": "^1.0.0"
+        "injectpromise": "^1.0.0",
+        "validator": "^12.2.0"
     },
     "devDependencies": {
         "@babel/core": "^7.4.5",
