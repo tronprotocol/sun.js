@@ -1,6 +1,13 @@
-
 import validator from 'validator';
 import BigNumber from 'bignumber.js';
+
+import * as accounts from './accounts';
+import * as base58 from './base58';
+import * as bytes from './bytes';
+import * as crypto from './crypto';
+import * as code from './code';
+import * as abi from './abi';
+import * as ethersUtils from './ethersUtils';
 
 const utils = {
     isValidURL(url) {
@@ -129,11 +136,18 @@ const utils = {
         return val !== null && typeof val !== 'undefined';
     },
 
-    async sleep(millis = 1000){
+    async sleep(millis = 1000) {
         return new Promise(resolve => setTimeout(resolve, millis));
     }
-}
+};
 
 export default {
-    ...utils
+    ...utils,
+    code,
+    accounts,
+    base58,
+    bytes,
+    crypto,
+    abi,
+    ethersUtils
 };
