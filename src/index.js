@@ -1,11 +1,12 @@
 import injectpromise from 'injectpromise';
+import helper from 'helper';
 
 export default class sun {
     constructor(mainchain = false, sidechain = false, mainGatewayAddress = false, sideGatewayAddress = false, sideChainId = false) {
         this.mainchain = mainchain;
         this.sidechain = sidechain;
         this.isAddress = this.mainchain.isAddress;
-        this.utils = this.mainchain.utils;
+        this.utils = helper;
         this.setMainGatewayAddress(mainGatewayAddress);
         this.setSideGatewayAddress(sideGatewayAddress);
         this.setChainId(sideChainId);
