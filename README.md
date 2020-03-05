@@ -1,6 +1,6 @@
 # What is Sun.js
 
-Sun.js inherits from TronWeb and services for Sun-network. We  encapsulated two objects (mainchain and sidechain) based on TronWeb. The methods and attributes in mainchain or sidechain are exactly the same as the tronweb instance. For example, users can use sun.mainchain.trx.getBalance() to get balance from the mainchain. Futhermore, we add some new methods which are as follows in Sun class so that users can use them to contact between the main chain and the side chain. 
+Sun.js is a kind of js-sdk and services for  Tron Network and Sun Network. We encapsulated two objects (mainchain and sidechain). The methods and attributes in mainchain or sidechain can be used to connect with TRON. For example, users can use sun.mainchain.trx.getBalance() to get balance from the mainchain. Futhermore, we add some methods which are as follows in Sun class so that users can use them to contact between the main chain and the side chain.
 
 # Installation
 
@@ -34,8 +34,5 @@ so that you can call it in your HTML page as
 ```javascript
 npm run test
 ```
-But before run test cases, you must add some info in test/config.js, such fullnode, solidity node, eventsever and private key.
+But before run test cases, you must add some info in test/config.js, such as fullNode, solidityNode, eventServer and private key.
 
-# Documentation
-
-[Sun](http://47.252.84.158:8080/sunnetwork/doc/guide/#sunweb-class)

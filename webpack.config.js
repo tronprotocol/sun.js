@@ -41,6 +41,9 @@ const baseConfig = {
             'node_modules',
             path.resolve(__dirname, 'src')
         ],
+        alias: {
+            '@tronweb': path.resolve(__dirname, 'src/tronweb/src'),
+        }
     },
     devtool: 'source-map',
     mode

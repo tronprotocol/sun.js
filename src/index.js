@@ -1,13 +1,19 @@
+import injectpromise from 'injectpromise';
+
+import TronWeb from '@tronweb';
+
 export default class SunWeb {
-    constructor(mainchain = false, sidechain = false, mainGatewayAddress = false, sideGatewayAddress = false, sideChainId = false) {
-        this.mainchain = mainchain;
-        this.sidechain = sidechain;
+    constructor(mainOptions = false, sideOptions = false, mainGatewayAddress = false, sideGatewayAddress = false, sideChainId = false, privateKey = false) {
+        mainOptions = { ...mainOptions, privateKey };
+        sideOptions = { ...sideOptions, privateKey };
+        this.mainchain = new TronWeb(mainOptions);
+        this.sidechain = new TronWeb(sideOptions);
         this.isAddress = this.mainchain.isAddress;
         this.utils = this.mainchain.utils;
         this.setMainGatewayAddress(mainGatewayAddress);
         this.setSideGatewayAddress(sideGatewayAddress);
         this.setChainId(sideChainId);
-        this.injectPromise = this.utils.promiseInjector(this);
+        this.injectPromise = injectpromise(this);
         this.validator = this.mainchain.trx.validator;
 
         const self = this;
@@ -367,7 +373,7 @@ export default class SunWeb {
                         break;
                     case 'retryDeposit':
                         result = await contractInstance.retryDeposit(num).send(options, privateKey);
-                        break; 
+                        break;
                     case 'retryMapping':
                         result = await contractInstance.retryMapping(num).send(options, privateKey);
                         break;
@@ -822,7 +828,7 @@ export default class SunWeb {
                     });
                 }
 
-                if (!utils.hasProperty(output, 'contractResult')) {
+                if (!this.utils.hasProperty(output, 'contractResult')) {
                     return callback({
                         error: 'Failed to execute: ' + JSON.stringify(output, null, 2),
                         transaction: signedTransaction,
@@ -833,7 +839,7 @@ export default class SunWeb {
                 if (options.rawResponse)
                     return callback(null, output);
 
-                let decoded = decodeOutput(this.outputs, '0x' + output.contractResult[0]);
+                let decoded = this.utils.abi.decodeOutput(this.outputs, '0x' + output.contractResult[0]);
 
                 if (decoded.length === 1)
                     decoded = decoded[0];
@@ -1023,4 +1029,3 @@ export default class SunWeb {
         );
     }
 }
-
