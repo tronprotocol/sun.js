@@ -4,25 +4,38 @@ import TronWeb from '@tronweb';
 
 export default class SunWeb {
     constructor(mainOptions = false, sideOptions = false, mainGatewayAddress = false, sideGatewayAddress = false, sideChainId = false, privateKey = false) {
+        // compatibility with no sidechain
+        if (mainGatewayAddress != false) {
+            sideOptions = { ...sideOptions, privateKey };
+            this.sidechain = new TronWeb(sideOptions);
+            this.setMainGatewayAddress(mainGatewayAddress);
+            this.setSideGatewayAddress(sideGatewayAddress);
+            this.setChainId(sideChainId);
+
+            const self = this;
+            this.sidechain.trx.sign = (...args) => {
+                return self.sign(...args);
+            };
+            this.sidechain.trx.multiSign = (...args) => {
+                return self.multiSign(...args);
+            };
+        } else {
+            privateKey = sideOptions;
+        }
         mainOptions = { ...mainOptions, privateKey };
-        sideOptions = { ...sideOptions, privateKey };
         this.mainchain = new TronWeb(mainOptions);
-        this.sidechain = new TronWeb(sideOptions);
         this.isAddress = this.mainchain.isAddress;
         this.utils = this.mainchain.utils;
-        this.setMainGatewayAddress(mainGatewayAddress);
-        this.setSideGatewayAddress(sideGatewayAddress);
-        this.setChainId(sideChainId);
-        this.injectPromise = injectpromise(this);
-        this.validator = this.mainchain.trx.validator;
-
-        const self = this;
-        this.sidechain.trx.sign = (...args) => {
-            return self.sign(...args);
-        };
-        this.sidechain.trx.multiSign = (...args) => {
-            return self.multiSign(...args);
-        };
+        this.isAddress = this.mainchain.isAddress;
+        this.utils = this.mainchain.utils;
+        [
+            'sha3', 'toHex', 'toUtf8', 'fromUtf8',
+            'toAscii', 'fromAscii', 'toDecimal', 'fromDecimal',
+            'toSun', 'fromSun', 'toBigNumber', 'isAddress',
+            'createAccount', 'address', 'version'
+        ].forEach(key => {
+            this[key] = TronWeb[key];
+        });
     }
     setMainGatewayAddress(mainGatewayAddress) {
         if (!this.isAddress(mainGatewayAddress))
@@ -85,18 +98,18 @@ export default class SunWeb {
         const signWeight = await this.sidechain.trx.getSignWeight(transaction, permissionId);
 
         if (signWeight.result.code === 'PERMISSION_ERROR') {
-           return callback(signWeight.result.message);
+            return callback(signWeight.result.message);
         }
 
         let foundKey = false;
         signWeight.permission.keys.map(key => {
-           if (key.address === address) foundKey = true;
+            if (key.address === address) foundKey = true;
         });
 
         if (!foundKey) return callback(privateKey + ' has no permission to sign');
 
         if (signWeight.approved_list && signWeight.approved_list.indexOf(address) != -1) {
-           return callback(privateKey + ' already sign transaction');
+            return callback(privateKey + ' already sign transaction');
         }
 
         // reset transaction
@@ -104,14 +117,14 @@ export default class SunWeb {
             transaction = signWeight.transaction.transaction;
             transaction.raw_data.contract[0].Permission_id = permissionId;
         } else {
-             return callback('Invalid transaction provided');
+            return callback('Invalid transaction provided');
         }
 
         // sign
         try {
-           return callback(null, this.signTransaction(privateKey, transaction));
+            return callback(null, this.signTransaction(privateKey, transaction));
         } catch (ex) {
-           callback(ex);
+            callback(ex);
         }
     }
 
@@ -173,9 +186,9 @@ export default class SunWeb {
         }
     }
 
-     /**
-     * deposit asset to sidechain
-     */
+    /**
+    * deposit asset to sidechain
+    */
     async depositTrx(
         callValue,
         depositFee,
@@ -364,7 +377,7 @@ export default class SunWeb {
                 result = await approveInstance.approve(this.mainGatewayAddress, num).send(options, privateKey);
             } else {
                 const contractInstance = await this.mainchain.contract().at(this.mainGatewayAddress);
-                switch(functionSelector) {
+                switch (functionSelector) {
                     case 'depositTRC20':
                         result = await contractInstance.depositTRC20(contractAddress, num).send(options, privateKey);
                         break;
