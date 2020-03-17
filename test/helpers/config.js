@@ -7,7 +7,7 @@ const sideSolidityNode = 'https://suntest.tronex.io';
 const sideEventServer = 'https://suntest.tronex.io';
 
 module.exports = {
-    PRIVATE_KEY: 'EB6E720D3F439DB6A66A8A5CB535F6838C690CD6BA0D6027A78BE4B781F20AF7',  // account private key, do not show it at any place
+    PRIVATE_KEY: '',  // account private key, do not show it at any place
     CONSUME_USER_RESOURCE_PERCENT: 30,
     DEPOSIT_FEE: 0,
     MAPPING_FEE: 0,
