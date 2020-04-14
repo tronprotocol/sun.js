@@ -2,16 +2,12 @@ import injectpromise from 'injectpromise';
 
 import TronWeb from '@tronweb';
 
-export default class SunWeb {
+export default class Sun {
     constructor(mainOptions = false, sideOptions = false, mainGatewayAddress = false, sideGatewayAddress = false, sideChainId = false, privateKey = false) {
         // compatibility with no sidechain
         if (mainGatewayAddress != false) {
             sideOptions = { ...sideOptions, privateKey };
             this.sidechain = new TronWeb(sideOptions);
-            this.setMainGatewayAddress(mainGatewayAddress);
-            this.setSideGatewayAddress(sideGatewayAddress);
-            this.setChainId(sideChainId);
-
             const self = this;
             this.sidechain.trx.sign = (...args) => {
                 return self.sign(...args);
@@ -24,9 +20,6 @@ export default class SunWeb {
         }
         mainOptions = { ...mainOptions, privateKey };
         this.mainchain = new TronWeb(mainOptions);
-        this.isAddress = this.mainchain.isAddress;
-        this.utils = this.mainchain.utils;
-        this.isAddress = this.mainchain.isAddress;
         this.utils = this.mainchain.utils;
         [
             'sha3', 'toHex', 'toUtf8', 'fromUtf8',
@@ -36,6 +29,14 @@ export default class SunWeb {
         ].forEach(key => {
             this[key] = TronWeb[key];
         });
+        if (mainGatewayAddress != false) {
+            this.setMainGatewayAddress(mainGatewayAddress);
+            this.setSideGatewayAddress(sideGatewayAddress);
+            this.setChainId(sideChainId);
+        }
+        this.injectPromise = injectpromise(this);
+        console.log(this.injectPromise);
+        this.validator = this.mainchain.trx.validator;
     }
     setMainGatewayAddress(mainGatewayAddress) {
         if (!this.isAddress(mainGatewayAddress))
